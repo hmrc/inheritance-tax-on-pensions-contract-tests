@@ -1,33 +1,32 @@
-**This is the template README. Please update this with project specific content.**
-
 # inheritance-tax-on-pensions-contract-tests
 
-<SERVICE_NAME> API tests.
+Contract tests for the IHTP payment-notice API. The current smoke test posts a
+payment notice and checks the 201 response contains a form bundle number and
+IHT payment reference, using the current stub contract.
 
 ## Pre-requisites
 
-### Services
-
-Start Mongo Docker container as follows:
+Use JDK 21 and sbt. Start the local stub:
 
 ```bash
-docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
-```
-
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
-
-```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start INHERITANCE_TAX_ON_PENSIONS_STUBS
 ```
 
 ## Tests
 
-Run tests as follows:
-
-* Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
+The default target is `http://localhost:10712`. Run all tests:
 
 ```bash
-./run-tests.sh <environment>
+./run-tests.sh local
+```
+
+Omitting the argument also selects `local`. For an IDE run, use the VM option
+`-Denvironment=local`, not `-Denv=local`.
+
+To override the local host or run the suite directly:
+
+```bash
+sbt -Denvironment=local -Dlocal.hip.host=http://localhost:10712 test
 ```
 
 ## Scalafmt
@@ -35,7 +34,7 @@ Run tests as follows:
 Check all project files are formatted as expected as follows:
 
 ```bash
-sbt scalafmtCheckAll scalafmtCheck
+sbt scalafmtCheckAll scalafmtSbtCheck
 ```
 
 Format `*.sbt` and `project/*.scala` files as follows:

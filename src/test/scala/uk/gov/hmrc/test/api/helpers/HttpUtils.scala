@@ -1,24 +1,34 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.test.api.helpers
 
-import org.apache.pekko.actor.ActorSystem
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json.parse
 import play.api.libs.ws.JsonBodyWritables.writeableOf_JsValue
 import play.api.libs.ws.StandaloneWSResponse
 import uk.gov.hmrc.test.api.config.ContractTestConfig
-import play.api.libs.ws.ahc.AhcConfigBuilder
 
 import java.lang.Thread.currentThread
-import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.duration.*
 import scala.concurrent.{Await, Awaitable}
-import scala.io.Source._
-import scala.language.postfixOps
+import scala.io.Source
+import scala.util.Using
 
 trait HttpUtils extends ContractTestConfig with uk.gov.hmrc.apitestrunner.http.HttpClient {
-
-  val builder: AhcConfigBuilder    = new AhcConfigBuilder()
-  implicit val system: ActorSystem = ActorSystem()
 
   def get(
     url: String,
@@ -47,19 +57,10 @@ trait HttpUtils extends ContractTestConfig with uk.gov.hmrc.apitestrunner.http.H
     }
   }
 
-  def buildRequestBody(sourceFileName: String, acknowledgementReference: String): JsValue = {
-    val templateStr = readFileAsString(sourceFileName)
-    readFileAsString(sourceFileName)
-    parse(templateStr.replace("$AckRef$", acknowledgementReference))
-  }
-
-  def newAckRef(): String = {
-    val ref = System.currentTimeMillis % 1000000000L
-    f"BRPYXX$ref%09d"
-  }
+  def buildRequestBody(sourceFileName: String): JsValue = parse(readFileAsString(sourceFileName))
 
   private def readFileAsString(resourceName: String): String =
-    fromInputStream(currentThread().getContextClassLoader.getResourceAsStream(resourceName)).mkString
+    Using.resource(Source.fromResource(resourceName, currentThread().getContextClassLoader))(_.mkString)
 
   protected val awaitableTimeout: FiniteDuration = 30.seconds
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-ENVIRONMENT=$1
+set -euo pipefail
 
-sbt clean -Denvironment="${ENVIRONMENT:=local}" "testOnly uk.gov.hmrc.api.specs.*"
+ENVIRONMENT=${1:-local}
+
+sbt -Denvironment="$ENVIRONMENT" clean test
