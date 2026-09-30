@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.api.features
+package uk.gov.hmrc.test.api.features.postrequests
 
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.must.Matchers
@@ -22,7 +22,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import play.api.libs.json.Json
 import uk.gov.hmrc.test.api.helpers.IhtpHelper
 
-class SuccessfulPostRequestSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll with IhtpHelper {
+class PostRequestSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll with IhtpHelper {
 
   override protected def afterAll(): Unit =
     try wsClient.close()
@@ -31,13 +31,17 @@ class SuccessfulPostRequestSpec extends AnyWordSpec with Matchers with BeforeAnd
   "The ihtp-payment-notice POST end point" should {
     "return 201 with a form bundle number and IHT payment reference" in {
       val response            = postIhtpPaymentNotice(jsonFile = "PostSubmitSuccess.json")
-      withClue(s"POST $ihtpPaymentNoticeEndpoint returned ${response.status}: ${response.body}") {
+      withClue(s"POST $ihtpPostPaymentNoticeEndpoint returned ${response.status}: ${response.body}") {
         response.status mustBe 201
       }
       val responseBody        = Json.parse(response.body)
       val ihtResponse         = responseBody \ "success" \ "ihtResponse"
       val formBundleNo        = (ihtResponse \ "formBundleNo").as[String]
       val ihtPaymentReference = (ihtResponse \ "ihtPaymentReference").as[String]
+
+      val actual = Json.parse(response.body)
+
+      println(s"RESPONSE BODY:\n${Json.prettyPrint(actual)}")
 
       formBundleNo.length        must (be >= 1 and be <= 15)
       ihtPaymentReference.length must (be >= 1 and be <= 17)

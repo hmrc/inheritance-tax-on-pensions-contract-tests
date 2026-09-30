@@ -1,12 +1,21 @@
 {
-  "ihtNoticeRequest": {
+  "ihtNoticeResponse": {
+    "schemeDetails": {
+      "pstr": "24000001IN",
+      "schemeName": "Test Scheme",
+      "schemeStartDate": "1980-01-01",
+      "schemeEndDate": "2030-01-01"
+    },
     "reportDetails": {
-      "pstr": "S2400000001"
+      "submissionDate": "2026-07-14T16:42:20Z",
+      "ihtPaymentReference": "A123456/25A629671",
+      "ihtVersion": "001",
+      "ihtPaid": false
     },
     "deceased": {
       "deceasedPersonalDetails": {
         "title": "Mr",
-        "firstForename": "Wellayeman",
+        "firstForename": "Firstname",
         "secondForename": "Secondname",
         "surname": "Surname",
         "ninoExist": "No",
@@ -23,7 +32,7 @@
       "prContactDetails": {
         "title": "Mrs",
         "firstForename": "FirstnameA",
-        "secondForename": "Middlename",
+        "secondForename": "Marie",
         "surname": "Surname"
       },
       "prAddress": {
@@ -37,9 +46,9 @@
       "dateNoticeReceived": "2425-43-42",
       "noticeSubmittedByPr": "Yes",
       "knownBeneficiaries": "Yes",
-      "totalIhtPayable": 100.00,
-      "totalInterestPayable": 10.00,
-      "total": 110.00
+      "totalIhtPayable": 100,
+      "totalInterestPayable": 10,
+      "total": 110
     },
     "beneficiary": [
       {
@@ -47,7 +56,7 @@
         "beneficiaryContactDetails": {
           "beneficiaryPersonalDetails": {
             "title": "Mr",
-            "firstForename": "FirstnameA",
+            "firstForename": "Firstnameny",
             "secondForename": "W",
             "surname": "Surname",
             "ninoExist": "No",
@@ -63,17 +72,18 @@
           }
         },
         "beneficiaryPaymentDetails": {
-          "beneficiaryIhtPayable": 60.00,
-          "beneficiaryInterestPayable": 6.00,
-          "beneficiaryTotal": 66.00
+          "beneficiaryIhtPayable": 60,
+          "beneficiaryInterestPayable": 6,
+          "beneficiaryTotal": 66
         }
       },
       {
-        "beneficiaryType": "01",
+        "beneficiaryType": "02",
         "beneficiaryContactDetails": {
           "beneficiaryPersonalDetails": {
+            "beneficiaryTrustName": "Trustname",
             "title": "Miss",
-            "firstForename": "FirstnameB",
+            "firstForename": "Joanna",
             "secondForename": "W",
             "surname": "Surname",
             "ninoExist": "No",
@@ -89,15 +99,16 @@
           }
         },
         "beneficiaryPaymentDetails": {
-          "beneficiaryIhtPayable": 40.00,
-          "beneficiaryInterestPayable": 4.00,
-          "beneficiaryTotal": 44.00
+          "beneficiaryIhtPayable": 40,
+          "beneficiaryInterestPayable": 4,
+          "beneficiaryTotal": 44
         }
       }
     ],
     "declarations": {
       "submittedBy": "PSA",
       "submitterId": "A2100005",
+      "submitterName": "PSA Name",
       "psaDeclaration": {
         "psaDeclaration1": true,
         "psaDeclaration2": true

@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.test.api.helpers
 
-import play.api.libs.json.JsValue
+import play.api.libs.json.{JsValue, Json, Reads}
 import play.api.libs.json.Json.parse
 import play.api.libs.ws.JsonBodyWritables.writeableOf_JsValue
 import play.api.libs.ws.StandaloneWSResponse
@@ -58,6 +58,18 @@ trait HttpUtils extends ContractTestConfig with uk.gov.hmrc.apitestrunner.http.H
   }
 
   def buildRequestBody(sourceFileName: String): JsValue = parse(readFileAsString(sourceFileName))
+
+  def checkResponseBody[A](body: String, expected: A)(implicit rds: Reads[A]): Unit =
+    Json
+      .parse(body)
+      .validate[A]
+      .fold(
+        invalid => {
+          println(s"Invalid: $invalid\n\nActual: $body\n\nExpected: $expected")
+          assert(assertion = false, s"Json Parse error. Actual Response:\n$body \n\n Json Errors:\n$invalid")
+        },
+        valid => assert(valid == expected, message = s"Expected $expected Actual: $valid")
+      )
 
   private def readFileAsString(resourceName: String): String =
     Using.resource(Source.fromResource(resourceName, currentThread().getContextClassLoader))(_.mkString)

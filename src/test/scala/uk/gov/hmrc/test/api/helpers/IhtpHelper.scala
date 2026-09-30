@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.test.api.helpers
 
-import play.api.libs.json.JsValue
+import play.api.libs.json.{JsObject, JsValue, Json}
 import play.api.libs.ws.StandaloneWSResponse
 
 import java.time.Instant
@@ -25,7 +25,8 @@ import java.time.temporal.ChronoUnit
 
 trait IhtpHelper extends HttpUtils {
 
-  def ihtpPaymentNoticeEndpoint: String = s"$etmpHost/etmp/RESTAdapter/pods/reports/ihtp-payment-notice"
+  def ihtpPostPaymentNoticeEndpoint: String = s"$etmpHost/etmp/RESTAdapter/pods/reports/ihtp-payment-notice"
+  def ihtpGetOverviewEndpoint: String       = s"$etmpHost//etmp/RESTAdapter/pods/reports/ihtp-overview"
 
   def getCorrelationId: String = java.util.UUID.randomUUID().toString
 
@@ -49,7 +50,7 @@ trait IhtpHelper extends HttpUtils {
 
     val url = overrideUrl match {
       case Some(path) => s"$etmpHost$path"
-      case None       => ihtpPaymentNoticeEndpoint
+      case None       => ihtpPostPaymentNoticeEndpoint
     }
     postUrl(url, Some(buildIhtpHeaders()), requestBody)
   }
@@ -58,5 +59,63 @@ trait IhtpHelper extends HttpUtils {
     val requestBody = buildRequestBody(jsonFile)
     buildIhtpPaymentNoticeUrl(requestBody = requestBody)
   }
+
+  def getIhtpRequest(
+    pstr: Option[String] = None,
+    ihtPaymentReference: Option[String] = None,
+    versionNumber: Option[String] = None,
+    fbNumber: Option[String] = None,
+    overrideUrl: Option[String] = None
+  ): StandaloneWSResponse = {
+
+    val headers = Seq(
+      "Accept" -> "application/json"
+    )
+    val url     = overrideUrl match {
+      case Some(path) => path
+      case None       => ihtpPostPaymentNoticeEndpoint
+    }
+    get(url, requestHeaders = Some(headers))
+  }
+
+  def getIhtpOverviewRequest(
+    pstr: Option[String] = None,
+    ihtPaymentReference: Option[String] = None,
+    versionNumber: Option[String] = None,
+    fbNumber: Option[String] = None,
+    dateFrom: Option[String] = None,
+    dateTo: Option[String] = None,
+    status: Option[String] = None,
+    overrideUrl: Option[String] = None
+  ): StandaloneWSResponse = {
+
+    val headers = Seq(
+      "Accept" -> "application/json"
+    )
+    val url     = overrideUrl match {
+      case Some(path) => path
+      case None       => ihtpGetOverviewEndpoint
+    }
+    get(url, requestHeaders = Some(headers))
+  }
+
+  val noRecordsResponseForGetRequest: JsObject = Json.obj(
+    "errors" -> Json.obj(
+      "processingDate" -> "2026-06-07T16:12:49Z",
+      "code"           -> "003",
+      "text"           -> "Request could not be processed"
+    )
+  )
+
+  val badRequestForGetOverviewRequest: JsObject = Json.obj(
+    "origin"   -> "HoD",
+    "response" -> Json.obj(
+      "error" -> Json.obj(
+        "code"    -> "400",
+        "logID"   -> "Example id",
+        "message" -> "Example message"
+      )
+    )
+  )
 
 }
