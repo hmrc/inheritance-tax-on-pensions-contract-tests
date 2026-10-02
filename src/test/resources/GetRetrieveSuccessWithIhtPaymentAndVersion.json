@@ -1,0 +1,116 @@
+{
+  "ihtNoticeResponse": {
+    "schemeDetails": {
+      "pstr": "24000001IN",
+      "schemeName": "Test Scheme",
+      "schemeStartDate": "1980-01-01",
+      "schemeEndDate": "2030-01-01"
+    },
+    "reportDetails": {
+      "submissionDate": "2026-07-14T16:42:20Z",
+      "ihtPaymentReference": "A123456/25A629671",
+      "ihtVersion": "001",
+      "ihtPaid": false
+    },
+    "deceased": {
+      "deceasedPersonalDetails": {
+        "title": "Mr",
+        "firstForename": "Firstname",
+        "secondForename": "Secondname",
+        "surname": "Surname",
+        "ninoExist": "No",
+        "reasonNoNino": "Reason for no NINO"
+      },
+      "deceasedDetails": {
+        "deceasedsDob": "1950-01-01",
+        "deceasedsDod": "2026-01-01",
+        "ihtRefNumber": "A123456/25A"
+      }
+    },
+    "personalRep": {
+      "typeOfPr": "01",
+      "prContactDetails": {
+        "title": "Mrs",
+        "firstForename": "FirstnameA",
+        "secondForename": "Marie",
+        "surname": "Surname",
+        "prAddress": {
+          "addressLine1": "1 ABCDE Street",
+          "addressLine2": "FGHIJ Town",
+          "postCode": "ZZ99 1AA",
+          "country": "GB"
+        }
+      }
+    },
+    "ihTaxInformation": {
+      "dateNoticeReceived": "2425-43-42",
+      "noticeSubmittedByPr": "Yes",
+      "knownBeneficiaries": "Yes",
+      "totalIhtPayable": 100,
+      "totalInterestPayable": 10,
+      "total": 110
+    },
+    "beneficiary": {
+      "beneficiaryDetails": [
+        {
+          "beneficiaryType": "01",
+          "beneficiaryPersonalDetails": {
+            "title": "Mr",
+            "firstForename": "Firstnameny",
+            "secondForename": "W",
+            "surname": "Surname",
+            "ninoExist": "No",
+            "reasonNoNino": "Test"
+          },
+          "beneficiaryAddress": {
+            "addressLine1": "1 ABCDE Street",
+            "addressLine2": "FGHIJ Town",
+            "addressLine3": "line3",
+            "addressLine4": "line4",
+            "postCode": "ZZ1 1ZZ",
+            "country": "GB"
+          },
+          "beneficiaryPaymentDetails": {
+            "beneficiaryIhtPayable": 60,
+            "beneficiaryInterestPayable": 6,
+            "beneficiaryTotal": 66
+          }
+        },
+        {
+          "beneficiaryType": "02",
+          "beneficiaryPersonalDetails": {
+            "beneficiaryTrustName": "Trustname",
+            "title": "Miss",
+            "firstForename": "Joanna",
+            "secondForename": "W",
+            "surname": "Surname",
+            "ninoExist": "No",
+            "reasonNoNino": "Test"
+          },
+          "beneficiaryAddress": {
+            "addressLine1": "1 ABCDE Street",
+            "addressLine2": "FGHIJ Town",
+            "addressLine3": "line3",
+            "addressLine4": "line4",
+            "postCode": "ZZ1 1ZZ",
+            "country": "GB"
+          },
+          "beneficiaryPaymentDetails": {
+            "beneficiaryIhtPayable": 40,
+            "beneficiaryInterestPayable": 4,
+            "beneficiaryTotal": 44
+          }
+        }
+      ]
+    },
+    "declarations": {
+      "submittedBy": "PSA",
+      "submitterId": "A2100005",
+      "submitterName": "PSA Name",
+      "psaDeclaration": {
+        "psaDeclaration1": true,
+        "psaDeclaration2": true
+      }
+    }
+  }
+}
