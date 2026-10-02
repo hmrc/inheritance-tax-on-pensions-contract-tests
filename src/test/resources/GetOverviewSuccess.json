@@ -405,7 +405,7 @@
         "secondForename": "Middlename",
         "surname": "Surname",
         "nino": null,
-        "reasonForNoNino": "Reason for no national insurance number",
+        "reasonNoNino": "Reason for no national insurance number",
         "ihtpStatus": "Not reconciled"
       }
     ]
