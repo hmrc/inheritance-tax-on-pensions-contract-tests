@@ -2,11 +2,15 @@
 
 ## Pre-requisites
 
-Use JDK 21 and sbt. Start the local stub:
+1. Make sure you run all the dependant services through the service manager:
 
-> `sm2 --stop INHERITANCE_TAX_ON_PENSIONS_STUBS`
+> `sm2 --start IHTP_ALL`
 
-> `sm2 --start INHERITANCE_TAX_ON_PENSIONS_STUBS`
+To note in the scenario you want to run a specific version of a microservice. Stop the specific frontend, backend or stubs microservice from the service manager, and run it locally.
+
+> `Example: sm2 --stop INHERITANCE_TAX_ON_PENSIONS_STUBS`
+
+> `sbt run -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes`
 
 ## Tests
 
