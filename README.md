@@ -1,20 +1,22 @@
-# inheritance-tax-on-pensions-contract-tests
-
-Contract tests for the IHTP payment-notice API. The current smoke test posts a
-payment notice and checks the 201 response contains a form bundle number and
-IHT payment reference, using the current stub contract.
+# Inheritance Tax On Pensions Contract Tests
 
 ## Pre-requisites
 
-Use JDK 21 and sbt. Start the local stub:
+1. Make sure you run all the dependant services through the service manager:
 
-```bash
-sm2 --start INHERITANCE_TAX_ON_PENSIONS_STUBS
-```
+> `sm2 --start IHTP_ALL`
+
+To note in the scenario you want to run a specific version of a microservice. Stop the specific frontend, backend or stubs microservice from the service manager, and run it locally.
+
+> `Example: sm2 --stop INHERITANCE_TAX_ON_PENSIONS_STUBS`
+
+> `sbt run -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes`
 
 ## Tests
 
-The default target is `http://localhost:10712`. Run all tests:
+The default target is `http://localhost:10712`. 
+
+### To run all tests:
 
 ```bash
 ./run-tests.sh local
